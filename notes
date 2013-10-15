@@ -1,0 +1,8 @@
+redirect all http to url iptables:
+iptables -t nat -A PREROUTING -p TCP --dport 80 -j DNAT --to-destination 192.168.1.1:80
+
+apt-get install dnsmasq
+redirect all dns requests to 192.168.1.1
+mcedit /etc/dnsmasq.conf
+add 
+address=/#/192.168.1.1
