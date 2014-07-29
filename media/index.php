@@ -8,8 +8,8 @@ $ignore_file_list = array(".", "Thumbs.db", ".DS_Store", "index.php", "icons.png
 // ADD SPECIFIC FILE EXTENSIONS YOU WANT TO IGNORE HERE
 $ignore_ext_list = array();
 
-//$title = cleanTitle(basename(dirname(__FILE__)));
-$title = cleanTitle(basename("/USB"));
+$title = cleanTitle(basename(dirname(__FILE__)));
+//$title = cleanTitle(basename("/USB"));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -76,20 +76,20 @@ function format_size($file)
 
 // GET FILES AND PUT INTO AN ARRAY
 $files = $directories = array();
-//$handle=opendir(dirname(__FILE__));
-$handle=opendir("/media/usb");
+$handle=opendir(dirname(__FILE__));
+//$handle=opendir("/media/usb");
 while (($file = readdir($handle))!==false) { $files[] = $file; }
 closedir($handle);
 
 sort($files);
-
+$x=1;
 // GET DIRECTORIES
 foreach($files as $c => $file)
 {
 	if(!is_dir($file)) { continue; }
 	if(in_array($file, $ignore_file_list)) { continue; }
 	if(in_array($fileExt, $ignore_ext_list)) { continue; }
-	
+	if($file==".." AND $x==1) { $file=""; }
 	echo "<div class=\"media_block\">";
 	echo "	<div class=\"media_block_image\"><a href=\"$file\" class=\"dir\">&nbsp;</a></div>";
 	echo "	<div class=\"media_block_name\">\n";
